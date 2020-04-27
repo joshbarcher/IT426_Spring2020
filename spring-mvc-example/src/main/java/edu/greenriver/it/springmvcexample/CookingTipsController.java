@@ -71,4 +71,45 @@ public class CookingTipsController
         }
         return html + "</ul>";
     }
+
+    @RequestMapping("/tip/grilling/num_tips")
+    @ResponseBody
+    public String grillingNumTips()
+    {
+        return "<h1>Grilling tips</h1><p>There are " +
+                tipsByType.get("grilling").length +
+                " tips</p>";
+    }
+
+    @RequestMapping("/tip/baking/num_tips")
+    @ResponseBody
+    public String bakingNumTips()
+    {
+        return "<h1>Baking tips</h1><p>There are " +
+                tipsByType.get("baking").length +
+                " tips</p>";
+    }
+
+    @RequestMapping("/tip/all")
+    @ResponseBody
+    public String allTips()
+    {
+        String html = "<h1>Tips</h1><ul>";
+
+        for (String cookingType : tipsByType.keySet())
+        {
+            html = printTips(tipsByType.get(cookingType), html);
+        }
+
+        return html + "</ul>";
+    }
+
+    private String printTips(String[] tips, String html)
+    {
+        for (int i = 0; i < tips.length; i++)
+        {
+            html += "<li>" + tips[i] + "</li>";
+        }
+        return html;
+    }
 }
