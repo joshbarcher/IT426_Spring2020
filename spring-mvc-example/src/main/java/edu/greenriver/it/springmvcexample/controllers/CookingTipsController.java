@@ -1,6 +1,7 @@
-package edu.greenriver.it.springmvcexample;
+package edu.greenriver.it.springmvcexample.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 @Controller
+@RequestMapping("/cooking/tip")
 public class CookingTipsController
 {
     private Map<String, String[]> tipsByType = new HashMap<>();
@@ -16,37 +18,37 @@ public class CookingTipsController
     public CookingTipsController()
     {
         tipsByType.put("grilling", new String[] {
-                "Preheat the Grill.",
-                "Keep it Clean.",
-                "Oil the Food, ArithmeticOpTable.UnaryOp.Not the Grate.",
-                "Keep the Lid Down.",
-                "Time and Temperature.",
-                "Know When to Be Direct, Know When to be Indirect.",
-                "Maintaining Temperatures.",
-                "Tame the Flame."
+            "Preheat the Grill.",
+            "Keep it Clean.",
+            "Oil the Food, ArithmeticOpTable.UnaryOp.Not the Grate.",
+            "Keep the Lid Down.",
+            "Time and Temperature.",
+            "Know When to Be Direct, Know When to be Indirect.",
+            "Maintaining Temperatures.",
+            "Tame the Flame."
         });
         tipsByType.put("baking", new String[] {
-                "Always Have the Correct Butter Consistency.",
-                "Room Temperature is KEY.",
-                "Read the Recipe Before Beginning.",
-                "Always Have Ingredients Prepped.",
-                "Learn How to Measure.",
-                "Weigh Your Ingredients.",
-                "Get an Oven Thermometer.",
-                "Keep Your Oven Door Closed."
+            "Always Have the Correct Butter Consistency.",
+            "Room Temperature is KEY.",
+            "Read the Recipe Before Beginning.",
+            "Always Have Ingredients Prepped.",
+            "Learn How to Measure.",
+            "Weigh Your Ingredients.",
+            "Get an Oven Thermometer.",
+            "Keep Your Oven Door Closed."
         });
 
         tipsByType.put("steaming", new String[] {
-                "Don’t Add Too Much Water.",
-                "Boil the Water First.",
-                "Don’t Steam For Too Long.",
-                "Enhance the Steam By Using Stock & Herbs.",
-                "Make Sure the Seal is Air-Tight.",
-                "Prepare the Food Before Steaming."
+            "Don’t Add Too Much Water.",
+            "Boil the Water First.",
+            "Don’t Steam For Too Long.",
+            "Enhance the Steam By Using Stock & Herbs.",
+            "Make Sure the Seal is Air-Tight.",
+            "Prepare the Food Before Steaming."
         });
     }
 
-    @RequestMapping("/tip/random/grilling")
+    @RequestMapping("/grilling/random")
     @ResponseBody
     public String randomGrillingTip()
     {
@@ -58,7 +60,7 @@ public class CookingTipsController
                 tip + "</p>";
     }
 
-    @RequestMapping("/tip/grilling")
+    @RequestMapping("/grilling")
     @ResponseBody
     public String grillingTips()
     {
@@ -72,7 +74,7 @@ public class CookingTipsController
         return html + "</ul>";
     }
 
-    @RequestMapping("/tip/grilling/num_tips")
+    @RequestMapping("/grilling/num_tips")
     @ResponseBody
     public String grillingNumTips()
     {
@@ -81,7 +83,7 @@ public class CookingTipsController
                 " tips</p>";
     }
 
-    @RequestMapping("/tip/baking/num_tips")
+    @RequestMapping("/baking/num_tips")
     @ResponseBody
     public String bakingNumTips()
     {
@@ -90,7 +92,7 @@ public class CookingTipsController
                 " tips</p>";
     }
 
-    @RequestMapping("/tip/all")
+    @RequestMapping("/all")
     @ResponseBody
     public String allTips()
     {
@@ -112,4 +114,41 @@ public class CookingTipsController
         }
         return html;
     }
+
+    @RequestMapping("/grilling/{tipId}")
+    @ResponseBody
+    public String grillingTipById(@PathVariable int tipId)
+    {
+        String[] tips = tipsByType.get("grilling");
+
+        if (tipId >= 0 && tipId < tips.length)
+        {
+            String tip = tips[tipId];
+            return "<h1>Tip #" + tipId + "</h1><p>" + tip + "</p>";
+        }
+        return "<h1>Tip not found!</h1>";
+    }
+
+    @RequestMapping("/print/{cookingType}/{emphasize}")
+    @ResponseBody
+    public String typesOfTips(@PathVariable String cookingType,
+                              @PathVariable boolean emphasize)
+    {
+        return cookingType + " " + emphasize;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
