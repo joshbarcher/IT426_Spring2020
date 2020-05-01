@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show some products</title>
+</head>
+<body>
+    <h1>Highlighted Product</h1>
+    <p th:text="'Great deals! - ' + ${product.name}">Great deals! - Surfboard</p>
+
+    <h2>Other Products</h2>
+    <p th:text="${highlightedProduct.name}">A product</p>
+</body>
+</html>
