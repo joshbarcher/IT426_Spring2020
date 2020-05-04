@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!-- bind our product object to this form -->
+<form th:action="@{/products/add}" method="post" th:object="${product}">
+    <div>
+        <label for="name">Name: </label>
+        <input type="text" id="name"
+               name="name" th:field="*{name}"> <!-- bind this field to product.name -->
+    </div>
+    <div>
+        <label for="price">Price: </label>
+        <input type="number" min="0"
+               max="10000" step="0.01"
+               id="price" name="price"
+               th:field="*{price}"> <!-- bind this field to product.price -->
+    </div>
+    <div>
+        <label for="description">Description: </label>
+        <textarea id="description"
+                  name="description"
+                  th:field="*{description}"> <!-- bind this field to product.description -->
+
+      </textarea>
+    </div>
+    <button type="submit">Add Product</button>
+</form>
+</body>
+</html>

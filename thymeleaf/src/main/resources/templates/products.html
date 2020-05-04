@@ -5,10 +5,14 @@
     <title>Show some products</title>
 </head>
 <body>
+    <header th:replace="fragments/parts :: header"></header>
+
     <h1>Highlighted Product</h1>
-    <p th:text="'Great deals! - ' + ${product.name}">Great deals! - Surfboard</p>
+    <p th:text="'Great deals! - ' + ${product}">Great deals! - Surfboard</p>
 
     <h2>Other Products</h2>
     <p th:text="${highlightedProduct.name}">A product</p>
+
+    <footer th:replace="fragments/parts :: footer"></footer>
 </body>
 </html>

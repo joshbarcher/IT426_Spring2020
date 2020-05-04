@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/parts :: head(${title})">
+    <meta charset="UTF-8">
+    <title>All products</title>
+</head>
+<body>
+    <!-- I want to show the shared fragment -->
+    <header th:replace="fragments/parts :: header"></header>
+
+    <p>Link to some interesting products: <a th:href="@{/products}">products</a></p>
+
+    <!-- I want to conditionally show this table -->
+    <table th:unless="${products.length == 0}">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Sale Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}">A product</td>
+                <td th:text="${product.price}">$.99</td>
+                <td th:text="${product.description}">Description</td>
+                <td th:switch="${product.onSale.toString()}">
+                    <span th:case="ON_SALE">On sale now!</span>
+                    <span th:case="ONE_TIME_ONLY">One time only sale!</span>
+                    <span th:case="PREMIER_DEAL">Our premier sale this month!</span>
+                    <span th:case="NO_SALE">Check back later...</span>
+                    <span th:case="*">Unspecified</span>
+                </td>
+            </tr>
+            <tr th:remove="all">
+                <td>A book</td>
+                <td>$19.99</td>
+                <td>Description</td>
+                <td>Sale Status</td>
+            </tr>
+            <tr th:remove="all">
+                <td>A pack of pencils</td>
+                <td>$3.99</td>
+                <td>Description</td>
+                <td>Sale Status</td>
+            </tr>
+            <tr th:remove="all">
+                <td>A ironing board</td>
+                <td>$29.99</td>
+                <td>Description</td>
+                <td>Sale Status</td>
+            </tr>
+        </tbody>
+    </table>
+    <p th:if="${products.length == 0}">
+        There are not products to show you...
+    </p>
+
+    <footer th:replace="fragments/parts :: footer"></footer>
+</body>
+</html>

@@ -2,10 +2,12 @@ package edu.greenriver.it.thymeleafdemo.controllers;
 
 import edu.greenriver.it.thymeleafdemo.model.Product;
 import edu.greenriver.it.thymeleafdemo.model.Sale;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class ProductController
 {
@@ -23,7 +25,7 @@ public class ProductController
         new Product(
             "Refrigerator magnets", 1.99,
             "A 5 pack of magnets for the fridge.",
-            Sale.NO_SALE
+            Sale.ONCE_A_YEAR_SALE
         )
     };
 
@@ -35,6 +37,41 @@ public class ProductController
         model.addAttribute("highlightedProduct", products[1]);
 
         return "products";
+    }
+
+    @RequestMapping("/products/all")
+    public String allProducts(Model model)
+    {
+        //save all products
+        model.addAttribute("products", products);
+        model.addAttribute("title", "All Products");
+
+        return "all";
+    }
+
+    @GetMapping("/products/add")
+    public String showProductForm(Model model)
+    {
+        model.addAttribute("product", new Product());
+        return "add_products_form";
+    }
+
+    @PostMapping("/products/add")
+    public String handleProductForm(@ModelAttribute Product product)
+    {
+        log.info(product.toString());
+
+        //save to db...
+
+        return "redirect:/products/all";
+    }
+
+    @GetMapping("/products/edit/{index}")
+    public String editProductForm(Model model, @PathVariable int index)
+    {
+        Product product = products[index];
+        model.addAttribute("product", product);
+        return "add_products_form";
     }
 }
 

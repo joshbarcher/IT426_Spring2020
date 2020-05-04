@@ -5,6 +5,7 @@ public enum Sale
     ON_SALE,
     ONE_TIME_ONLY,
     PREMIER_DEAL,
-    NO_SALE
+    NO_SALE,
+    ONCE_A_YEAR_SALE
 }
 
