@@ -1,7 +1,9 @@
 package points.test;
 
+import points.adapter.Point2DAdapter;
 import points.adapter.Point3DAdapter;
 import points.plane.Plane2D;
+import points.plane.Plane3D;
 import points.point.ICartesianPoint;
 import points.point.Point2D;
 import points.point.Point3D;
@@ -30,5 +32,17 @@ public class DriverProgram
         Point3D point = new Point3D(3, -17, 2);
         plane.add(new Point3DAdapter(point));
         plane.printPlane();
+        System.out.println();
+
+        //new target system
+        Plane3D plane3D = new Plane3D();
+        plane3D.add(point);
+        plane3D.printPlane();
+        System.out.println();
+
+        points.stream().forEach(p -> {
+            plane3D.add(new Point2DAdapter(p));
+        });
+        plane3D.printPlane();
     }
 }
